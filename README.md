@@ -16,6 +16,10 @@ Console utility allowing for filtering a list of words by only allowing certain 
 
 # examples
 
+## Display words that can be spelled on a calculator!
+
+    $ dictionary-letter-filter -u https://raw.githubusercontent.com/dwyl/english-words/master/words_alpha.txt -l beghilos
+
 ## Filtering a word list for words that only contain the letters abcdef:
 
     $ dictionary-letter-filter -f wordlist.txt -l abcdef
