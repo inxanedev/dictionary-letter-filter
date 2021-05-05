@@ -90,13 +90,25 @@ fn main() {
     };
 
     let filter = filter::make_filter(&opts.opt_str("l").unwrap());
-    let dict = match dictionary::make_dictionary(&opts.opt_str("f").unwrap()) {
-        Ok(d) => d,
-        Err(_) => {
-            eprintln!("There was a problem opening the file.");
-            std::process::exit(1);
-        }
-    };
+    
+    let dict;
+    if opts.opt_present("u") {
+        dict = match dictionary::make_dictionary_url(&opts.opt_str("u").unwrap()) {
+            Ok(d) => d,
+            Err(_) => {
+                eprintln!("There was a problem fetching the dictionary from the specified URL!");
+                std::process::exit(1);
+            }
+        };
+    } else {
+        dict = match dictionary::make_dictionary(&opts.opt_str("f").unwrap()) {
+            Ok(d) => d,
+            Err(_) => {
+                eprintln!("There was a problem opening the file.");
+                std::process::exit(1);
+            }
+        };
+    }
 
     let mut out: Option<fs::File> = None;
 

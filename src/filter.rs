@@ -11,11 +11,11 @@ pub fn make_filter<T: AsRef<str>>(letters: &T) -> HashSet<char> {
 }
 
 pub trait Filterable {
-    fn matches(&self, filter: &HashSet<char>) -> bool;
+    fn matches_filter(&self, filter: &HashSet<char>) -> bool;
 }
 
 impl<T> Filterable for T where T: AsRef<str> {
-    fn matches(&self, filter: &HashSet<char>) -> bool {
+    fn matches_filter(&self, filter: &HashSet<char>) -> bool {
         self.as_ref().chars().all(|c| filter.contains(&c))
     }
 }
