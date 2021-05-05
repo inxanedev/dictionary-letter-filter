@@ -6,6 +6,7 @@ use std::fs;
 mod filter;
 mod dictionary;
 
+/// Validates the specified configuartion, returns a list of errors that were found.
 fn validate_config(opts: &Matches) -> Vec<&'static str> {
     let mut errors: Vec<&'static str> = Vec::new();
 
@@ -33,6 +34,7 @@ fn print_usage(program: &str, opts: Options) {
     print!("{}", opts.usage(&brief));
 }
 
+/// Sets up all the command line options, and returns the options that the user specified.
 fn setup_options() -> Option<Matches> {
     let args: Vec<String> = env::args().collect();
     let program = args[0].clone();
@@ -75,6 +77,8 @@ fn setup_options() -> Option<Matches> {
     Some(matches)
 }
 
+/// Utility function for outputting either to a file or to stdout.
+/// If stream is None, it'll output to stdout, if it's a file, it'll output to that file.
 fn output<T: AsRef<str>>(text: T, stream: &Option<fs::File>) {
     if stream.is_some() {
         writeln!(stream.as_ref().unwrap(), "{}", &text.as_ref()).expect("Couldn't write output to stream!");
